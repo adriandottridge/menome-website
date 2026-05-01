@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — MenoMe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink:   #f2c4ce;
+      --yellow: #f9e8c0;
+      --green:  #c8dfc8;
+      --blue:   #c4d4e8;
+      --cream:  #faf8f5;
+      --text:   #3a3530;
+      --muted:  #9a9088;
+      --border: #e8e2da;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -100px;
+      right: -100px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      left: -100px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--blue) 0%, transparent 70%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.1s;
+    }
+
+    .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    header nav a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    header nav a:hover { color: var(--text); }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 3rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* ── LEFT COLUMN: Calendar ── */
+    .calendar-section {
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.3s;
+    }
+
+    .section-label {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* Month navigation */
+    .month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+
+    .month-nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--muted);
+      padding: 0.25rem 0.5rem;
+      transition: color 0.3s ease;
+      line-height: 1;
+    }
+
+    .month-nav button:hover { color: var(--text); }
+
+    .month-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    /* Day-of-week headers */
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-dow {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: center;
+      padding-bottom: 0.5rem;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--text);
+      border-radius: 50%;
+      cursor: default;
+      transition: background 0.2s ease;
+      position: relative;
+    }
+
+    .cal-day.empty { cursor: default; }
+
+    .cal-day.has-post {
+      cursor: pointer;
+      background: var(--pink);
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .cal-day.has-post:hover {
+      background: #e8a8b8;
+    }
+
+    .cal-day.today {
+      box-shadow: 0 0 0 1px var(--muted);
+    }
+
+    /* ── RIGHT COLUMN: Latest Posts ── */
+    .posts-section {
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.5s;
+      position: sticky;
+      top: 2rem;
+    }
+
+    .posts-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .posts-list li {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .posts-list li:first-child {
+      border-top: 1px solid var(--border);
+    }
+
+    .posts-list a {
+      display: block;
+      padding: 1.25rem 0;
+      text-decoration: none;
+      color: var(--text);
+      transition: color 0.3s ease;
+    }
+
+    .posts-list a:hover { color: var(--muted); }
+
+    .post-date {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .post-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1.1rem;
+      line-height: 1.3;
+    }
+
+    /* ── POST OVERLAY ── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(250, 248, 245, 0.96);
+      z-index: 100;
+      overflow-y: auto;
+      padding: 3rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    .overlay.visible {
+      opacity: 1;
+    }
+
+    .overlay-inner {
+      max-width: 660px;
+      margin: 0 auto;
+    }
+
+    .overlay-close {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 3rem;
+      padding: 0;
+      transition: color 0.3s ease;
+    }
+
+    .overlay-close:hover { color: var(--text); }
+
+    .overlay-date {
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .overlay-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.1;
+      margin-bottom: 2.5rem;
+      color: var(--text);
+    }
+
+    .overlay-rule {
+      width: 40px;
+      height: 1px;
+      background: var(--pink);
+      margin-bottom: 2.5rem;
+    }
+
+    .overlay-body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.85;
+      color: var(--text);
+    }
+
+    .overlay-body p {
+      margin-bottom: 1.5rem;
+    }
+
+    .overlay-body em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+    }
+
+    .overlay-body hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+
+    footer {
+      padding: 2rem 3rem;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 1.5rem;
+      }
+      header { padding: 1.5rem; }
+      .posts-section { position: static; }
+      .overlay { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="wordmark">MenoMe</a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Calendar -->
+    <section class="calendar-section">
+      <p class="section-label">Journal</p>
+      <div class="month-nav">
+        <button id="prevMonth" aria-label="Previous month">&#8592;</button>
+        <span class="month-title" id="monthTitle"></span>
+        <button id="nextMonth" aria-label="Next month">&#8594;</button>
+      </div>
+      <div class="cal-grid" id="calGrid">
+        <div class="cal-dow">Mo</div>
+        <div class="cal-dow">Tu</div>
+        <div class="cal-dow">We</div>
+        <div class="cal-dow">Th</div>
+        <div class="cal-dow">Fr</div>
+        <div class="cal-dow">Sa</div>
+        <div class="cal-dow">Su</div>
+      </div>
+    </section>
+
+    <!-- Latest posts -->
+    <aside class="posts-section">
+      <p class="section-label">Latest posts</p>
+      <ul class="posts-list" id="postsList"></ul>
+    </aside>
+  </main>
+
+  <!-- Post overlay -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="overlay-inner">
+      <button class="overlay-close" id="overlayClose">&#8592; Back to journal</button>
+      <p class="overlay-date" id="overlayDate"></p>
+      <h1 class="overlay-title" id="overlayTitle"></h1>
+      <div class="overlay-rule"></div>
+      <div class="overlay-body" id="overlayBody"></div>
+    </div>
+  </div>
+
+  <footer>&copy; 2026 MenoMe</footer>
+
+  <script>
+    // ── POSTS DATA ──────────────────────────────────────────────────────────
+    // To add a new post, add an object to this array.
+    // date format: 'YYYY-MM-DD'
+    const posts = [
+      {
+        date: '2026-04-30',
+        title: 'Episode 1: The Day It All Began',
+        body: `
+          <p>I woke up early on a day off and, for reasons I can't entirely explain, found myself thinking clearly about AI for the first time in a while. Not in an abstract way — more in a "hang on, what if you actually tried to do something with this" way.</p>
+
+          <p>The idea that formed was an app to support women going through the menopause. It's something I feel genuinely strongly about. There's a real gap between what women experiencing perimenopause actually need — continuity, someone to help them make sense of what's happening, something that helps them walk into a GP appointment feeling prepared rather than overwhelmed — and what currently exists. A lot of apps track symptoms. Not many do much with them afterwards.</p>
+
+          <p>The other idea, running alongside this one, was almost a test of the first. Has AI-assisted software development now reached a point where someone with no coding background whatsoever — and I mean none — can build a real, working app and get it into Apple's App Store? I genuinely don't know the answer. But it seemed like an interesting thing to find out.</p>
+
+          <p>I spent most of that first day talking to Claude, the AI I'm using as a thinking partner throughout this. Not writing code — just thinking out loud, really, and having those thoughts organised back at me rather more coherently than I'd offered them. By the end of the day there was a forty-page document covering the app's features, the market, the legal structure, the costs, the timeline. Which felt like reasonable progress for a day off.</p>
+
+          <p>In the evening I found a tool called Bitrig — an app that lets you describe what you want to build in plain English and produces working software from it. I had a go, and within a couple of hours had something on my phone that had actual buttons and a symptom checklist and broadly resembled the beginning of an app. That was, I'll admit, quite satisfying.</p>
+
+          <p>Honest feelings at the end of day one: mostly enthusiasm, with a reasonable undercurrent of doubt. The enthusiasm is obvious — new project, interesting problem, no idea yet where the hard bits are going to be. The doubt is more specific. I have a full-time job. I have no understanding of the code being written on my behalf. When things break — and they will break — I'll be relying on AI to fix them, which works until it doesn't. And there's a version of this where I spend several months and a not-insignificant amount of money on something that three people use before something better comes along.</p>
+
+          <p>That's a real possibility and I think it's worth naming rather than glossing over.</p>
+
+          <p>But the idea still seems worth pursuing. So, onward.</p>
+
+          <hr>
+
+          <p><em>Next time: what a forty-page app plan actually contains, and why I spent more time thinking about company structure than I expected to.</em></p>
+        `
+      }
+      // Add future posts here, e.g.:
+      // { date: '2026-05-07', title: 'Episode 2: ...', body: `<p>...</p>` }
+    ];
+
+    // ── CALENDAR LOGIC ──────────────────────────────────────────────────────
+    const START_YEAR  = 2026;
+    const START_MONTH = 3;   // 0-indexed → April
+    const END_YEAR    = 2026;
+    const END_MONTH   = 11;  // 0-indexed → December
+
+    const today = new Date();
+    let currentYear  = today.getFullYear();
+    let currentMonth = today.getMonth();
+
+    // Clamp to allowed range
+    if (currentYear < START_YEAR || (currentYear === START_YEAR && currentMonth < START_MONTH)) {
+      currentYear = START_YEAR; currentMonth = START_MONTH;
+    }
+    if (currentYear > END_YEAR || (currentYear === END_YEAR && currentMonth > END_MONTH)) {
+      currentYear = END_YEAR; currentMonth = END_MONTH;
+    }
+
+    // Build a lookup of posts by date string
+    const postsByDate = {};
+    posts.forEach(p => { postsByDate[p.date] = p; });
+
+    const monthNames = ['January','February','March','April','May','June',
+                        'July','August','September','October','November','December'];
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calGrid');
+      // Remove day cells (keep the 7 DOW headers)
+      const cells = grid.querySelectorAll('.cal-day');
+      cells.forEach(c => c.remove());
+
+      document.getElementById('monthTitle').textContent =
+        `${monthNames[currentMonth]} ${currentYear}`;
+
+      // What day of week does the 1st fall on? (0=Sun…6=Sat, we want Mon-first)
+      const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+      const offset   = (firstDay === 0) ? 6 : firstDay - 1; // Mon=0 offset
+      const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+      // Empty cells
+      for (let i = 0; i < offset; i++) {
+        const empty = document.createElement('div');
+        empty.className = 'cal-day empty';
+        grid.appendChild(empty);
+      }
+
+      // Day cells
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${currentYear}-${pad(currentMonth + 1)}-${pad(d)}`;
+        const cell    = document.createElement('div');
+        cell.className = 'cal-day';
+        cell.textContent = d;
+
+        const isToday =
+          d === today.getDate() &&
+          currentMonth === today.getMonth() &&
+          currentYear  === today.getFullYear();
+
+        if (isToday) cell.classList.add('today');
+
+        if (postsByDate[dateStr]) {
+          cell.classList.add('has-post');
+          cell.setAttribute('role', 'button');
+          cell.setAttribute('tabindex', '0');
+          cell.setAttribute('aria-label', postsByDate[dateStr].title);
+          cell.addEventListener('click',   () => openPost(dateStr));
+          cell.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') openPost(dateStr);
+          });
+        }
+
+        grid.appendChild(cell);
+      }
+
+      // Update nav button states
+      document.getElementById('prevMonth').disabled =
+        (currentYear === START_YEAR && currentMonth === START_MONTH);
+      document.getElementById('nextMonth').disabled =
+        (currentYear === END_YEAR && currentMonth === END_MONTH);
+    }
+
+    document.getElementById('prevMonth').addEventListener('click', () => {
+      if (currentMonth === 0) { currentMonth = 11; currentYear--; }
+      else currentMonth--;
+      if (currentYear < START_YEAR || (currentYear === START_YEAR && currentMonth < START_MONTH)) {
+        currentYear = START_YEAR; currentMonth = START_MONTH;
+      }
+      renderCalendar();
+    });
+
+    document.getElementById('nextMonth').addEventListener('click', () => {
+      if (currentMonth === 11) { currentMonth = 0; currentYear++; }
+      else currentMonth++;
+      if (currentYear > END_YEAR || (currentYear === END_YEAR && currentMonth > END_MONTH)) {
+        currentYear = END_YEAR; currentMonth = END_MONTH;
+      }
+      renderCalendar();
+    });
+
+    // ── LATEST POSTS ────────────────────────────────────────────────────────
+    function renderLatestPosts() {
+      const list   = document.getElementById('postsList');
+      const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 5);
+
+      sorted.forEach(p => {
+        const li   = document.createElement('li');
+        const a    = document.createElement('a');
+        a.href     = '#';
+        a.addEventListener('click', (e) => { e.preventDefault(); openPost(p.date); });
+
+        const dateEl       = document.createElement('p');
+        dateEl.className   = 'post-date';
+        const d            = new Date(p.date + 'T00:00:00');
+        dateEl.textContent = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        const titleEl       = document.createElement('p');
+        titleEl.className   = 'post-title';
+        titleEl.textContent = p.title;
+
+        a.appendChild(dateEl);
+        a.appendChild(titleEl);
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    }
+
+    // ── OVERLAY ─────────────────────────────────────────────────────────────
+    function openPost(dateStr) {
+      const post    = postsByDate[dateStr];
+      if (!post) return;
+
+      const d = new Date(dateStr + 'T00:00:00');
+      document.getElementById('overlayDate').textContent =
+        d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('overlayTitle').textContent = post.title;
+      document.getElementById('overlayBody').innerHTML    = post.body;
+
+      const overlay = document.getElementById('overlay');
+      overlay.classList.add('active');
+      overlay.scrollTop = 0;
+      requestAnimationFrame(() => overlay.classList.add('visible'));
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePost() {
+      const overlay = document.getElementById('overlay');
+      overlay.classList.remove('visible');
+      setTimeout(() => {
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    document.getElementById('overlayClose').addEventListener('click', closePost);
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePost();
+    });
+
+    // ── INIT ────────────────────────────────────────────────────────────────
+    renderCalendar();
+    renderLatestPosts();
+  </script>
+</body>
+</html>

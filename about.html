@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — MenoMe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink:   #f2c4ce;
+      --yellow: #f9e8c0;
+      --green:  #c8dfc8;
+      --blue:   #c4d4e8;
+      --cream:  #faf8f5;
+      --text:   #3a3530;
+      --muted:  #9a9088;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -120px;
+      right: -120px;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, var(--green) 0%, transparent 70%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    header {
+      padding: 2.5rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.1s;
+    }
+
+    .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 2rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 3rem;
+    }
+
+    .content {
+      max-width: 520px;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .placeholder {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Small decorative line */
+    .rule {
+      width: 40px;
+      height: 1px;
+      background: var(--pink);
+      margin: 2rem auto;
+    }
+
+    footer {
+      padding: 2rem 3rem;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.7s;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      header { padding: 1.5rem; }
+      main   { padding: 3rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="wordmark">MenoMe</a>
+    <nav>
+      <a href="about.html">About</a>
+      <a href="blog.html">Blog</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="content">
+      <h1>About</h1>
+      <div class="rule"></div>
+      <p class="placeholder">More information to follow soon.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 MenoMe
+  </footer>
+</body>
+</html>

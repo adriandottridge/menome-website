@@ -1,1 +1,176 @@
-<h1>MenoMe</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MenoMe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink:   #f2c4ce;
+      --yellow: #f9e8c0;
+      --green:  #c8dfc8;
+      --blue:   #c4d4e8;
+      --cream:  #faf8f5;
+      --text:   #3a3530;
+      --muted:  #9a9088;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background-color: var(--cream);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Soft gradient blobs in corners */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--pink) 0%, transparent 70%);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, var(--blue) 0%, transparent 70%);
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .wordmark {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 0.2s;
+    }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      line-height: 1;
+      text-decoration: none;
+      color: var(--text);
+      position: relative;
+      transition: color 0.4s ease;
+      opacity: 0;
+    }
+
+    nav a:nth-child(1) { animation: fadeUp 0.9s ease forwards 0.5s; }
+    nav a:nth-child(2) { animation: fadeUp 0.9s ease forwards 0.75s; }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.4s ease;
+    }
+
+    nav a:hover { color: var(--muted); }
+    nav a:hover::after { width: 100%; }
+
+    /* Subtle colour tint on hover */
+    nav a:nth-child(1):hover { color: #c4829a; }
+    nav a:nth-child(2):hover { color: #7aaa7a; }
+
+    .tagline {
+      margin-top: 4rem;
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.1s;
+    }
+
+    /* Second blob — yellow, top right */
+    .blob-tr {
+      position: fixed;
+      top: -80px;
+      right: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Third blob — green, bottom left */
+    .blob-bl {
+      position: fixed;
+      bottom: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, var(--green) 0%, transparent 70%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 480px) {
+      nav { gap: 1rem; }
+      .wordmark { margin-bottom: 2.5rem; }
+      .tagline  { margin-top: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob-tr"></div>
+  <div class="blob-bl"></div>
+
+  <p class="wordmark">MenoMe</p>
+
+  <nav>
+    <a href="about.html">About</a>
+    <a href="blog.html">Blog</a>
+  </nav>
+
+  <p class="tagline">A trusted companion for the menopause years</p>
+</body>
+</html>

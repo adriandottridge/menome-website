@@ -333,6 +333,14 @@
       margin: 2rem 0;
     }
 
+    .overlay-body .ai-note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
     footer {
       padding: 2rem 3rem;
       text-align: center;
@@ -410,36 +418,55 @@
 
   <script>
     // ── POSTS DATA ──────────────────────────────────────────────────────────
-    // To add a new post, add an object to this array.
-    // date format: 'YYYY-MM-DD'
     const posts = [
       {
         date: '2026-04-30',
         title: 'Episode 1: The Day It All Began',
         body: `
-          <p>I woke up early on a day off and, for reasons I can't entirely explain, found myself thinking clearly about AI for the first time in a while. Not in an abstract way — more in a "hang on, what if you actually tried to do something with this" way.</p>
+          <p>I woke up early on a day off and, for some reason, a lot of the thinking and training I'd been doing about AI suddenly clicked. I had a light bulb moment about creating an app to support women going through the menopause — something I feel quite passionately about. I feel they're quite under-supported at the moment, and there could be a gap in the market.</p>
 
-          <p>The idea that formed was an app to support women going through the menopause. It's something I feel genuinely strongly about. There's a real gap between what women experiencing perimenopause actually need — continuity, someone to help them make sense of what's happening, something that helps them walk into a GP appointment feeling prepared rather than overwhelmed — and what currently exists. A lot of apps track symptoms. Not many do much with them afterwards.</p>
+          <p>This whole thing is also a project to test whether software development has now reached a stage where someone with no coding expertise or background — i.e. me — can, through AI assistance, create a fully working, released product, get it into Apple's App Store, and actually have people downloading and using it.</p>
 
-          <p>The other idea, running alongside this one, was almost a test of the first. Has AI-assisted software development now reached a point where someone with no coding background whatsoever — and I mean none — can build a real, working app and get it into Apple's App Store? I genuinely don't know the answer. But it seemed like an interesting thing to find out.</p>
+          <p>It was quite an exciting day, that first one. I was full of ideas about what the features of the app could be, and right from the outset I've used AI as a thinking partner to develop the initial proposition. I was amazed that by the end of day one I already had a forty-page document setting out quite clearly and logically the different steps and stages to go through.</p>
 
-          <p>I spent most of that first day talking to Claude, the AI I'm using as a thinking partner throughout this. Not writing code — just thinking out loud, really, and having those thoughts organised back at me rather more coherently than I'd offered them. By the end of the day there was a forty-page document covering the app's features, the market, the legal structure, the costs, the timeline. Which felt like reasonable progress for a day off.</p>
+          <p>Later in the evening, having gone on to YouTube and looked at videos of people creating apps this way, I experimented with an app called Bitrig, where you can get a working prototype going through your phone itself without even needing a laptop. I got a very early prototype with some basic functionality — a symptoms checklist that users can enter. It was remarkable to see how, within a matter of hours, an idea had been shaped and led through to a very early prototype of some of the app's functionality.</p>
 
-          <p>In the evening I found a tool called Bitrig — an app that lets you describe what you want to build in plain English and produces working software from it. I had a go, and within a couple of hours had something on my phone that had actual buttons and a symptom checklist and broadly resembled the beginning of an app. That was, I'll admit, quite satisfying.</p>
+          <p>My feelings at the end of day one were a mixture of excitement and nervousness. The excitement was the thrill of learning something new, the pleasure of potentially setting something up that will be of genuine use to people, and the importance to me of establishing — right from the outset — a corporate structure around the app on a not-for-profit basis. That feels aligned with my values, and I think it will be a bit of a differentiator in terms of building trust and transparency: where the money goes, what it's for, and the emphasis on data minimisation and privacy first.</p>
 
-          <p>Honest feelings at the end of day one: mostly enthusiasm, with a reasonable undercurrent of doubt. The enthusiasm is obvious — new project, interesting problem, no idea yet where the hard bits are going to be. The doubt is more specific. I have a full-time job. I have no understanding of the code being written on my behalf. When things break — and they will break — I'll be relying on AI to fix them, which works until it doesn't. And there's a version of this where I spend several months and a not-insignificant amount of money on something that three people use before something better comes along.</p>
+          <p>The nervousness is whether this is all a big AI hallucination — whether it's actually possible to do this from scratch as a single person with no background. There's also the question of costs. To do it properly there will be some professional fees upfront, and there's a version of this where I spend quite a lot of money on something that two or three people use before it fizzles out or gets overtaken by something else.</p>
 
-          <p>That's a real possibility and I think it's worth naming rather than glossing over.</p>
+          <p>There's nervousness too about ongoing support — whether it's credible or sensible to release a product when I don't understand the underlying code, and am relying purely on AI both to write it and to keep it live as users report bugs, request features, or as the platforms it relies on are themselves updated. All of this in the context of still having a full-time job, done in evenings and weekends.</p>
 
-          <p>But the idea still seems worth pursuing. So, onward.</p>
+          <p>I recognise this is a phase of energy and excitement. But will that tail off when I'm trying to debug something and it just won't work? Will I lose heart? Will I give up? Will it turn out to be a waste of time?</p>
 
-          <hr>
+          <p>I'm feeling all of those things at the end of day one.</p>
 
-          <p><em>Next time: what a forty-page app plan actually contains, and why I spent more time thinking about company structure than I expected to.</em></p>
+          <p class="ai-note">(This blog entry was lightly tidied by AI, based on a transcript that I recorded, but the words are mine.)</p>
+        `
+      },
+      {
+        date: '2026-05-02',
+        title: 'Episode 2: Values and Principles',
+        body: `
+          <p>By way of an update: I'm keen to get on with actually building something. The reason for that is I still haven't fully committed to following through on this whole project — because I don't know how hard it's going to be, or how much effort I'll need to put in. And I don't know that because I haven't started building anything yet.</p>
+
+          <p>The AI is supremely confident it's all going to be achievable. I'm very well aware it would say that.</p>
+
+          <p>So I want to start building, to get an intuitive feel for just how realistic a proposition this actually is. But I can't do that at the moment, for a host of really mundane reasons — mainly that I don't have an up-to-date iOS on my MacBook, and upgrading it takes multiple hours. Many hours. And then there's making sure the upgrade doesn't break my music software, which is my other passion project. So that's where things stand on that front.</p>
+
+          <p>In the background, though, I have reached one milestone: I now have a registered, functioning website — the one these blog posts are being published on. That did give me a shot of confidence in the feasibility of the whole project, because I leant heavily on the AI to make it happen. I created a website once before, probably nearly 25 years ago in the early days of the internet, but that was very basic. I had no idea whether I'd be able to do this — though I was more confident the AI would help me through it. And indeed it did. I also managed to find a name that I think fits the intent of the project.</p>
+
+          <p>More generally, I've been chewing over what the core values of the product will be, and what the core values of the governance structure around it will be. I have a sense that this is the foundation layer I'll need to keep coming back to when making decisions along the way.</p>
+
+          <p>I'm also thinking about the extent to which that value set — the corporate structure, the governance — is itself part of what makes this product different. Whether users will care about it. I'm hoping, in a sense, to fill a gap in the market for people who want apps like this but have been put off by fears about what happens to their data: fears that it will be harvested and sold on, fears that a business model ultimately oriented around profit might not put the user's interests first.</p>
+
+          <p>The fact that I'm not going to do any of that — I'm hoping that will be a genuine differentiator. But then I'm also weighing that against the question of whether the product itself has features that are genuinely innovative and new. I've been working with the AI on some market research, and that's going reasonably well, though it slightly worries me that it may be hallucinating in its evaluation of competing products. I'll need to do some independent checking — some, certainly, though how much I'm not sure.</p>
+
+          <p>What I do know is that with a bit of a build under my belt, I should be in a more confident position to judge whether this is actually doable within a realistic time frame and cost envelope. And then I'll know a bit more about where I stand on the biggest initial decision of all: am I actually going to do this thing or not?</p>
+
+          <p class="ai-note">(This blog entry was lightly tidied by AI, based on a transcript that I recorded, but the words are mine.)</p>
         `
       }
-      // Add future posts here, e.g.:
-      // { date: '2026-05-07', title: 'Episode 2: ...', body: `<p>...</p>` }
     ];
 
     // ── CALENDAR LOGIC ──────────────────────────────────────────────────────
@@ -452,7 +479,6 @@
     let currentYear  = today.getFullYear();
     let currentMonth = today.getMonth();
 
-    // Clamp to allowed range
     if (currentYear < START_YEAR || (currentYear === START_YEAR && currentMonth < START_MONTH)) {
       currentYear = START_YEAR; currentMonth = START_MONTH;
     }
@@ -460,7 +486,6 @@
       currentYear = END_YEAR; currentMonth = END_MONTH;
     }
 
-    // Build a lookup of posts by date string
     const postsByDate = {};
     posts.forEach(p => { postsByDate[p.date] = p; });
 
@@ -471,26 +496,22 @@
 
     function renderCalendar() {
       const grid = document.getElementById('calGrid');
-      // Remove day cells (keep the 7 DOW headers)
       const cells = grid.querySelectorAll('.cal-day');
       cells.forEach(c => c.remove());
 
       document.getElementById('monthTitle').textContent =
         `${monthNames[currentMonth]} ${currentYear}`;
 
-      // What day of week does the 1st fall on? (0=Sun…6=Sat, we want Mon-first)
       const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-      const offset   = (firstDay === 0) ? 6 : firstDay - 1; // Mon=0 offset
+      const offset   = (firstDay === 0) ? 6 : firstDay - 1;
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-      // Empty cells
       for (let i = 0; i < offset; i++) {
         const empty = document.createElement('div');
         empty.className = 'cal-day empty';
         grid.appendChild(empty);
       }
 
-      // Day cells
       for (let d = 1; d <= daysInMonth; d++) {
         const dateStr = `${currentYear}-${pad(currentMonth + 1)}-${pad(d)}`;
         const cell    = document.createElement('div');
@@ -518,7 +539,6 @@
         grid.appendChild(cell);
       }
 
-      // Update nav button states
       document.getElementById('prevMonth').disabled =
         (currentYear === START_YEAR && currentMonth === START_MONTH);
       document.getElementById('nextMonth').disabled =
